@@ -5,4 +5,5 @@
     <color name="twitterBackground">#15202B</color>
     <color name="twitterTweet">#192734</color>
     <color name="twitterOutline">#22303c</color>
+    <color name="twitterRefresh">#1dcaff</color>
 </resources>

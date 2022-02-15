@@ -8,7 +8,9 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.codepath.apps.restclienttemplate.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.adapters.TimelineAdapter;
@@ -38,6 +40,8 @@ public class TimelineActivity extends AppCompatActivity {
     private TextView tvUserName;
    //private TextView tvDate;
     private ImageView ivProfilePic;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    SwipeRefreshLayout swipeContainer;
 
 
     public static String  TAG = "TimelineActivity";
@@ -48,13 +52,33 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        swipeContainer = findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                retrieveHomeTimeline();
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_light);
+
         client = TwitterApp.getRestClient(this);
         rvTimeline = findViewById(R.id.rvTimeline);
         tweets = new ArrayList<>();
         adapter = new TimelineAdapter(this,tweets);
-        rvTimeline.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvTimeline.setLayoutManager(linearLayoutManager);
         rvTimeline.setAdapter(adapter);
         retrieveHomeTimeline();
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Log.i(TAG, "onloadmore is called.");
+                loadMoreData();
+            }
+        };
+        rvTimeline.addOnScrollListener(scrollListener);
 
         adapter.setOnItemClickListener(new TimelineAdapter.OnItemClickListener() {
             @Override
@@ -78,6 +102,27 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+    public void loadMoreData() {
+        client.getNextPageOfTweets(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "More tweets were retrieved.");
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    List<Tweets> tweets = Tweets.fromJsonArray(jsonArray);
+                    adapter.addAll(Tweets.fromJsonArray(jsonArray));
+                } catch (JSONException e) {
+                    Log.e(TAG, "Json error", e);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "Error in getting more tweets." + response, throwable);
+            }
+        } , tweets.get(tweets.size() - 1).id);
+    }
+
     private void retrieveHomeTimeline() {
         client.getTwitterTimeline(new JsonHttpResponseHandler() {
             @Override
@@ -85,8 +130,9 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "Timeline was retrieved.");
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    tweets.addAll(Tweets.fromJsonArray(jsonArray));
-                    adapter.notifyDataSetChanged();
+                    adapter.clear();
+                    adapter.addAll(Tweets.fromJsonArray(jsonArray));
+                    swipeContainer.setRefreshing(false);
                 } catch (JSONException e) {
                     Log.e(TAG, "Json error", e);
                 }

@@ -14,6 +14,7 @@ public class Tweets {
     public String body;
     public String dateCreated;
     public Users user;
+    public long id;
 
     public Tweets() {
     }
@@ -24,6 +25,7 @@ public class Tweets {
         tweet.body = jsonObject.getString("text");
         tweet.dateCreated = jsonObject.getString("created_at");
         tweet.user = Users.fromJson(jsonObject.getJSONObject("user"));
+        tweet.id = jsonObject.getLong("id");
 
         return tweet;
     }
