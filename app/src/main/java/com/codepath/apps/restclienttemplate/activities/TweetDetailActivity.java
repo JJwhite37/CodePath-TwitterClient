@@ -36,7 +36,7 @@ public class TweetDetailActivity extends AppCompatActivity {
 
         Tweets tweet = (Tweets) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         tvTextBody.setText(tweet.body);
-        tvUserName.setText(tweet.user.userName);
+        tvUserName.setText("@" + tweet.user.userName);
         tvName.setText(tweet.user.name);
         tvDate.setText(TimeFormatter.getTimeStamp(tweet.dateCreated));
         Glide.with(TweetDetailActivity.this)

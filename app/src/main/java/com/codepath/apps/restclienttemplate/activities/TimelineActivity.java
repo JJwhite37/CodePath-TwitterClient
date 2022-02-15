@@ -39,7 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
     TimelineAdapter adapter;
     private TextView tvTextBody;
     private TextView tvUserName;
-   //private TextView tvDate;
+    private TextView tvName;
     private ImageView ivProfilePic;
     private EndlessRecyclerViewScrollListener scrollListener;
     SwipeRefreshLayout swipeContainer;
@@ -86,18 +86,19 @@ public class TimelineActivity extends AppCompatActivity {
             public void onItemClick(View itemView, int position) {
                 tvTextBody = itemView.findViewById(R.id.tvTextBody);
                 tvUserName = itemView.findViewById(R.id.tvUserName);
-                //tvDate = itemView.findViewById(R.id.tvDate);
+                tvName = itemView.findViewById(R.id.tvName);
                 ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
 
                 Intent i = new Intent(TimelineActivity.this, TweetDetailActivity.class);
                 i.putExtra("tweet", Parcels.wrap(tweets.get(position)));
 
                 Pair<View, String> p1 = Pair.create(tvTextBody, "body");
-                Pair<View, String> p2 = Pair.create(tvUserName, "name");
+                Pair<View, String> p2 = Pair.create(tvName, "name");
                 Pair<View, String> p3 = Pair.create(ivProfilePic, "pic");
+                Pair<View, String> p4 = Pair.create(tvUserName, "userName");
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(TimelineActivity.this, p1, p2, p3);
+                        makeSceneTransitionAnimation(TimelineActivity.this, p1, p2, p3,p4);
                 startActivity(i, options.toBundle());
             }
         });
@@ -151,6 +152,7 @@ public class TimelineActivity extends AppCompatActivity {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 client.clearAccessToken();
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

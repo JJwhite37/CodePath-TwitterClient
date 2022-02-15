@@ -73,12 +73,14 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
         TextView tvTextBody;
         TextView tvUserName;
         TextView tvDate;
+        private TextView tvName;
         ImageView ivProfilePic;
 
         public ViewHolder(@NonNull View itemView,final OnItemClickListener listener) {
             super(itemView);
             tvTextBody = itemView.findViewById(R.id.tvTextBody);
             tvUserName = itemView.findViewById(R.id.tvUserName);
+            tvName = itemView.findViewById(R.id.tvName);
             tvDate = itemView.findViewById(R.id.tvDate);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
 
@@ -92,7 +94,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
 
         public void bind(Tweets tweets) {
             tvTextBody.setText(tweets.body);
-            tvUserName.setText(tweets.user.userName);
+            tvUserName.setText("@" + tweets.user.userName);
+            tvName.setText(tweets.user.name);
             tvDate.setText("- " + TimeFormatter.getTimeDifference(tweets.dateCreated));
             Glide.with(context)
                     .load(tweets.user.profilePicUrl)

@@ -27,7 +27,8 @@
         android:layout_toEndOf="@+id/ivProfilePic"
         android:text="TextView"
         android:textColor="@color/textSecondary"
-        android:transitionName="name" />
+        android:textSize="@dimen/text_font"
+        android:transitionName="userName" />
 
     <TextView
         android:id="@+id/tvTextBody"
@@ -40,6 +41,7 @@
         android:autoLink="all"
         android:linksClickable="true"
         android:text="TextView"
+        android:textSize="@dimen/title_font"
         android:textColor="@color/textPrimary"
         android:transitionName="body" />
 
@@ -52,16 +54,19 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="5dp"
         android:text="TextView"
+        android:textSize="@dimen/text_font"
         android:textColor="@color/textSecondary" />
 
     <TextView
         android:id="@+id/tvName"
+        android:transitionName="name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="11dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfilePic"
+        android:textSize="@dimen/title_font"
         android:textColor="@color/textPrimary"
         android:text="TextView" />
 
