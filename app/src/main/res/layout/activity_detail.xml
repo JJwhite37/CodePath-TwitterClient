@@ -1,59 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/tweet_background"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/twitterBackground"
     android:padding="4dp">
 
     <ImageView
         android:id="@+id/ivProfilePic"
-        android:transitionName="pic"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:transitionName="pic"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvUserName"
-        android:transitionName="name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_below="@+id/tvName"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/ivProfilePic"
         android:text="TextView"
-        android:textColor="@color/textSecondary" />
+        android:textColor="@color/textSecondary"
+        android:transitionName="name" />
 
     <TextView
         android:id="@+id/tvTextBody"
-        android:transitionName="body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvUserName"
+        android:layout_below="@+id/ivProfilePic"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="11dp"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/ivProfilePic"
+        android:layout_marginTop="12dp"
         android:autoLink="all"
         android:linksClickable="true"
+        android:text="TextView"
         android:textColor="@color/textPrimary"
-        android:text="TextView" />
+        android:transitionName="body" />
 
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="183dp"
-        android:layout_toEndOf="@+id/tvUserName"
+        android:layout_below="@+id/tvTextBody"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
         android:textColor="@color/textSecondary" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/ivProfilePic"
+        android:textColor="@color/textPrimary"
+        android:text="TextView" />
+
 </RelativeLayout>

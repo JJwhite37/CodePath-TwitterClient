@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#8899A6</color>
+    <color name="twitterBackground">#15202B</color>
+    <color name="twitterTweet">#192734</color>
+    <color name="twitterOutline">#22303c</color>
+</resources>

@@ -13,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.TimeFormatter;
 import com.codepath.apps.restclienttemplate.models.Tweets;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHolder>{
     Context context;
@@ -57,20 +61,31 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTextBody;
         TextView tvUserName;
+        TextView tvDate;
         ImageView ivProfilePic;
 
         public ViewHolder(@NonNull View itemView,final OnItemClickListener listener) {
             super(itemView);
             tvTextBody = itemView.findViewById(R.id.tvTextBody);
             tvUserName = itemView.findViewById(R.id.tvUserName);
+            tvDate = itemView.findViewById(R.id.tvDate);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(itemView, getAdapterPosition());
+                }
+            });
         }
 
         public void bind(Tweets tweets) {
             tvTextBody.setText(tweets.body);
             tvUserName.setText(tweets.user.userName);
+            tvDate.setText("- " + TimeFormatter.getTimeDifference(tweets.dateCreated));
             Glide.with(context)
                     .load(tweets.user.profilePicUrl)
+                    .transform(new CropCircleTransformation())
                     .into(ivProfilePic);
         }
     }
