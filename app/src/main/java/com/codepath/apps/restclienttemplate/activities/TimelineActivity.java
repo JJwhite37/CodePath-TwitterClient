@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
@@ -47,6 +48,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     public static String  TAG = "TimelineActivity";
+    private final int REQUEST_CODE = 15;
 
 
     @Override
@@ -162,10 +164,21 @@ public class TimelineActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.miCompose:
-                Intent i = new Intent(TimelineActivity.this, TweetDetailActivity.class);
-                startActivity(i);
+                Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivityForResult(i, REQUEST_CODE);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            Tweets tweet = (Tweets) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
+            tweets.add(0,tweet);
+            adapter.notifyItemInserted(0);
+            rvTimeline.smoothScrollToPosition(0);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

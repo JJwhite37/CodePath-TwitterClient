@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tfCompose"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="261dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="3dp"
         android:background="@color/twitterTweet"
         android:text="tweet"
@@ -26,9 +27,13 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="3dp"
         android:layout_marginBottom="3dp"
+        android:padding="5dp"
+        android:textColorHint="@color/textSecondary"
+        android:background="@color/twitterTweet"
         app:counterEnabled="true"
         app:counterMaxLength="280"
-        app:counterTextColor="@color/textPrimary">
+        app:counterTextColor="@color/textPrimary"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1">
 
         <EditText
             android:id="@+id/etCompose"
@@ -38,13 +43,14 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="2dp"
-            android:background="@color/twitterTweet"
             android:ems="10"
             android:gravity="start|top"
             android:hint="Type your tweet here"
             android:inputType="textMultiLine"
             android:minLines="12"
+            android:padding="10dp"
             android:textColor="@color/textPrimary"
-            android:textColorHint="@color/textSecondary" />
+            android:textColorHint="@color/textSecondary"
+            tools:text="Hellow world this is me making a tweet for codepath" />
     </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
