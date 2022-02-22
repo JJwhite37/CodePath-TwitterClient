@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/twitterBackground"
     android:padding="4dp">
 
@@ -41,8 +41,8 @@
         android:autoLink="all"
         android:linksClickable="true"
         android:text="TextView"
-        android:textSize="@dimen/title_font"
         android:textColor="@color/textPrimary"
+        android:textSize="@dimen/title_font"
         android:transitionName="body" />
 
     <TextView
@@ -54,20 +54,32 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="5dp"
         android:text="TextView"
-        android:textSize="@dimen/text_font"
-        android:textColor="@color/textSecondary" />
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/text_font" />
 
     <TextView
         android:id="@+id/tvName"
-        android:transitionName="name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="11dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfilePic"
-        android:textSize="@dimen/title_font"
+        android:text="TextView"
         android:textColor="@color/textPrimary"
-        android:text="TextView" />
+        android:textSize="@dimen/title_font"
+        android:transitionName="name" />
+
+    <Button
+        android:id="@+id/btReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDate"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/twitterTweet"
+        android:text="Reply"
+        android:textColor="@color/textPrimary" />
 
 </RelativeLayout>

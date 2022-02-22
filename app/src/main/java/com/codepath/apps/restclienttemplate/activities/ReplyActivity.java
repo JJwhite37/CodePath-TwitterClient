@@ -23,11 +23,12 @@ import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
-public class ComposeActivity extends AppCompatActivity {
+public class ReplyActivity extends AppCompatActivity {
     public static String  TAG = "ComposeActivity";
     EditText etCompose;
     Button btTweet;
     TwitterClient client;
+    public long id;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class ComposeActivity extends AppCompatActivity {
 
         etCompose = findViewById(R.id.etCompose);
         btTweet = findViewById(R.id.btTweet);
+        Tweets tweets = (Tweets) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
 
         btTweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,15 +47,17 @@ public class ComposeActivity extends AppCompatActivity {
                 String tweet = etCompose.getText().toString();
 
                 if (tweet.isEmpty()) {
-                    Toast.makeText(ComposeActivity.this, "no characters where typed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ReplyActivity.this, "no characters where typed", Toast.LENGTH_LONG).show();
                     return;
                 } if(tweet.length() > 280) {
-                    Toast.makeText(ComposeActivity.this, "Too many characters typed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ReplyActivity.this, "Too many characters typed", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Toast.makeText(ComposeActivity.this, tweet, Toast.LENGTH_LONG).show();
-                client = TwitterApp.getRestClient(ComposeActivity.this);
-                client.postTweet(tweet, new JsonHttpResponseHandler() {
+                Toast.makeText(ReplyActivity.this, tweet, Toast.LENGTH_LONG).show();
+                client = TwitterApp.getRestClient(ReplyActivity.this);
+                tweet = "@" + tweets.user.userName + " " + tweet;
+                id = tweets.id;
+                client.postReply(tweet,id, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.i(TAG, "Tweet posted success.");
