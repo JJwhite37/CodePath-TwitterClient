@@ -40,6 +40,9 @@
             android:name=".activities.TimelineActivity">
         </activity>
         <activity
+            android:name=".activities.ComposeActivity">
+        </activity>
+        <activity
             android:name=".activities.TweetDetailActivity">
         </activity>
     </application>

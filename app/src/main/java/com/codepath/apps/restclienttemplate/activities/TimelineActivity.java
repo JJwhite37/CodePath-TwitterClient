@@ -18,6 +18,7 @@ import com.codepath.apps.restclienttemplate.models.Tweets;
 import com.codepath.apps.restclienttemplate.networking.TwitterClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -146,13 +147,23 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 client.clearAccessToken();
                 finish();
+                return true;
+            case R.id.miCompose:
+                Intent i = new Intent(TimelineActivity.this, TweetDetailActivity.class);
+                startActivity(i);
                 return true;
         }
         return super.onOptionsItemSelected(item);
