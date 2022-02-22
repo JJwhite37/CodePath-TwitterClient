@@ -18,6 +18,8 @@ import com.codepath.apps.restclienttemplate.adapters.TimelineAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweets;
 import com.codepath.apps.restclienttemplate.networking.TwitterClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +47,7 @@ public class TimelineActivity extends AppCompatActivity {
     private ImageView ivProfilePic;
     private EndlessRecyclerViewScrollListener scrollListener;
     SwipeRefreshLayout swipeContainer;
+    public FloatingActionButton miCompose;
 
 
     public static String  TAG = "TimelineActivity";
@@ -77,6 +80,16 @@ public class TimelineActivity extends AppCompatActivity {
         rvTimeline.setLayoutManager(linearLayoutManager);
         rvTimeline.setAdapter(adapter);
         retrieveHomeTimeline();
+
+        miCompose = findViewById(R.id.miCompose);
+
+        miCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivityForResult(i, REQUEST_CODE);
+            }
+        });
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
