@@ -17,6 +17,7 @@ import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.models.Tweets;
 import com.codepath.apps.restclienttemplate.networking.TwitterClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
@@ -26,6 +27,7 @@ import okhttp3.Headers;
 public class ReplyActivity extends AppCompatActivity {
     public static String  TAG = "ComposeActivity";
     EditText etCompose;
+    TextInputLayout tfCompose;
     Button btTweet;
     TwitterClient client;
     public long id;
@@ -39,7 +41,9 @@ public class ReplyActivity extends AppCompatActivity {
 
         etCompose = findViewById(R.id.etCompose);
         btTweet = findViewById(R.id.btTweet);
+        tfCompose = findViewById(R.id.tfCompose);
         Tweets tweets = (Tweets) Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
+        tfCompose.setHint("In reply to @" +tweets.user.userName);
 
         btTweet.setOnClickListener(new View.OnClickListener() {
             @Override
